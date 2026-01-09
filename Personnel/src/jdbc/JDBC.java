@@ -17,8 +17,8 @@ public class JDBC implements Passerelle
 	{
 		try
 		{
-			Class.forName(Credentials.getDriverClassName());
-			connection = DriverManager.getConnection(Credentials.getUrl(), Credentials.getUser(), Credentials.getPassword());
+			Class.forName(CredentialsExample.getDriverClassName());
+			connection = DriverManager.getConnection(CredentialsExample.getUrl(), CredentialsExample.getUser(), CredentialsExample.getPassword());
 		}
 		catch (ClassNotFoundException e)
 		{
