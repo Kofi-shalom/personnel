@@ -1,6 +1,7 @@
 package personnel;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 /**
  * Employé d'une ligue hébergée par la M2L. Certains peuvent 
@@ -14,10 +15,15 @@ public class Employe implements Serializable, Comparable<Employe>
 {
 	private static final long serialVersionUID = 4795721718037994734L;
 	private String nom, prenom, password, mail;
+	
+	//modifications
+	private LocalDate date_depart;
+	private LocalDate date_arrivee;
+	
 	private Ligue ligue;
 	private GestionPersonnel gestionPersonnel;
 	
-	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password)
+	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate date_arrivee, LocalDate date_depart)
 	{
 		this.gestionPersonnel = gestionPersonnel;
 		this.nom = nom;
@@ -25,6 +31,22 @@ public class Employe implements Serializable, Comparable<Employe>
 		this.password = password;
 		this.mail = mail;
 		this.ligue = ligue;
+		
+		//modifications 
+		
+		//conditions de validation de la date 
+		if (date_arrivee == null || date_depart == null) {
+			throw new IllegalArgumentException("Les dates d'arrivée et de départs sont obligatoires");
+		}
+
+
+	    if (date_depart != null && date_arrivee != null && date_depart.isBefore(date_arrivee)) {
+	            throw new IllegalArgumentException(
+	                "La date de départ ne peut pas être antérieure à la date d'arrivée");
+	        }
+	    
+		this.date_depart = date_depart;
+		this.date_arrivee = date_arrivee;
 	}
 	
 	/**
@@ -143,6 +165,48 @@ public class Employe implements Serializable, Comparable<Employe>
 	{
 		return ligue;
 	}
+	
+	
+	
+	
+	//Modifications pour les getteurs et setteurs
+	
+	public LocalDate getdate_depart()
+	{
+		return date_depart;
+	}
+	
+	public LocalDate getdate_arrivee()
+	{
+		return date_arrivee;
+	}
+	
+	
+	public void setdate_arrivee(LocalDate date_arrivee)
+	{
+		if (date_arrivee == null || date_depart == null) {
+			throw new IllegalArgumentException("Les dates d'arrivée et de départs sont obligatoires");
+		}
+        if (date_depart != null && date_depart.isBefore(date_arrivee)) {
+            throw new IllegalArgumentException(
+                "La date d'arrivée est postérieure à la date de départ");
+        }
+        this.date_arrivee = date_arrivee;
+    }
+
+	
+	
+	public void setdate_depart(LocalDate date_depart)
+	{
+		if (this.date_arrivee != null && date_depart != null && date_depart.isBefore(this.date_arrivee))
+		{
+            throw new IllegalArgumentException("La date de départ ne peut pas être antérieure à la date d'arrivée");
+		}
+		this.date_depart = date_depart;
+	}
+
+	
+	
 
 	/**
 	 * Supprime l'employé. Si celui-ci est un administrateur, le root
