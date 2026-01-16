@@ -16,7 +16,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	private static final long serialVersionUID = 4795721718037994734L;
 	private String nom, prenom, password, mail;
 	
-	//modif
+	//modifications
 	private LocalDate date_depart;
 	private LocalDate date_arrivee;
 	
