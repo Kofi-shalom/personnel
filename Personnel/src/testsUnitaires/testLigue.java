@@ -80,7 +80,7 @@ class testLigue
 	
 	@Test
 	void testchangementadmin() throws SauvegardeImpossible {
-        Ligue ligue = gestionPersonnel.addLigue("adminligue");
+        Ligue ligue = gestionPersonnel.addLigue("admin_ligue");
         
         java.time.LocalDate date_arrivee = java.time.LocalDate.of(2012,4,6);
         java.time.LocalDate date_depart = java.time.LocalDate.of(2026,8,10);
