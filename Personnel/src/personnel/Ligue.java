@@ -28,7 +28,7 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	 * @param nom le nom de la ligue.
 	 */
 	
-	Ligue(GestionPersonnel gestionPersonnel, String nom) throws SauvegardeImpossible
+	public Ligue(GestionPersonnel gestionPersonnel, String nom) throws SauvegardeImpossible
 	{
 		this(gestionPersonnel, -1, nom);
 		this.id = gestionPersonnel.insert(this); 
@@ -106,19 +106,23 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	 * @param prenom le prénom de l'employé.
 	 * @param mail l'adresse mail de l'employé.
 	 * @param password le password de l'employé.
+	 * @param localDate2 
+	 * @param localDate 
 	 * @param  
 	 * @param date_depart 
 	 * @return l'employé créé. 
 	 */
+	
+	
 
-	public Employe addEmploye(String nom, String prenom, String mail, String password)
+	public Employe addEmploye(String nom, String prenom, String mail, String password, java.time.LocalDate date_depart, java.time.LocalDate date_arrivee)
 	{
-		Employe employe = new Employe(this.gestionPersonnel, this, nom, prenom, mail, password, null, null);
+		Employe employe = new Employe(this.gestionPersonnel, this, nom, prenom, mail, password, date_depart, date_arrivee);
 		employes.add(employe);
 		return employe;
 	}
 	
-	void remove(Employe employe)
+	public void remove(Employe employe)
 	{
 		employes.remove(employe);
 	}
