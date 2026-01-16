@@ -43,6 +43,9 @@ class testLigue
             
             ligue.setAdministrateur(admin);
             ligue.remove(admin);
+            
+            assertFalse(ligue.getEmployes().contains(admin));
+
     }
 
 
@@ -69,14 +72,60 @@ class testLigue
 		 Ligue ligue = gestionPersonnel.addLigue("LigueSuppression");
 		 
 		 ligue.remove();
+		 
+		 assertFalse(gestionPersonnel.getLigues().contains(ligue));
+
 	}
+	
 	
 	@Test
 	void testgetsetligue() throws SauvegardeImpossible {
 		Ligue ligue = gestionPersonnel.addLigue("developpement");
 		
 		ligue.setNom("Java");
+		assertEquals("Java", ligue.getNom());
+
+	    // setAdministrateur
+        java.time.LocalDate date_arrivee = java.time.LocalDate.of(2012,4,6);
+        java.time.LocalDate date_depart = java.time.LocalDate.of(2026,8,10);
+
+	    Employe admin = ligue.addEmploye(
+	        "Malick", "Shalom", "ranelle@mail", "bts",
+	        date_arrivee, date_depart
+	    );
+
+	    ligue.setAdministrateur(admin);
+	    assertEquals(admin, ligue.getAdministrateur());
 	}
+
+	
+	
+	@Test
+	void testgetsetemploye() throws SauvegardeImpossible {
+        Ligue ligue = gestionPersonnel.addLigue("LigueSuppression");
+        
+        java.time.LocalDate date_arrivee = java.time.LocalDate.of(2012,4,6);
+        java.time.LocalDate date_depart = java.time.LocalDate.of(2026,8,10);
+        
+        Employe user = ligue.addEmploye("shalom", "Darius", "shalom@mail", "sacha", date_arrivee, date_depart);
+        
+        user.setNom("Bryan");
+        assertEquals("Bryan", user.getNom());
+
+
+	    user.setPrenom("Ranelle");
+	    assertEquals("Ranelle", user.getPrenom());
+	    
+	    java.time.LocalDate newdate_arrivee = java.time.LocalDate.of(2010,2,6);
+	    user.setdate_arrivee(newdate_arrivee);
+	    assertEquals(newdate_arrivee, user.getdate_arrivee());
+
+	    java.time.LocalDate newdate_depart = java.time.LocalDate.of(2027,1,10);
+	    user.setdate_depart(newdate_depart);
+	    assertEquals(newdate_depart, user.getdate_depart());
+	}
+
+	
 	
 	@Test
 	void testchangementadmin() throws SauvegardeImpossible {
@@ -93,5 +142,3 @@ class testLigue
         assertEquals(user, ligue.getAdministrateur());
 	}
 }
-
-
