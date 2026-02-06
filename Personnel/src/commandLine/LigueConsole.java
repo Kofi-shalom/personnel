@@ -2,6 +2,7 @@ package commandLine;
 
 import static commandLineMenus.rendering.examples.util.InOut.getString;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import commandLineMenus.List;
@@ -92,28 +93,51 @@ public class LigueConsole
 				);
 	}
 	
+
+	
+	
 	private Option ajouterEmploye(final Ligue ligue)
 	{
-		return new Option("ajouter un employé", "a",
-				() -> 
-				{
-					ligue.addEmploye(getString("nom : "), 
-						getString("prenom : "), getString("mail : "), 
-						getString("password : "));
-				}
-		);
+	    return new Option("ajouter un employé", "a",
+	        () ->
+	        {
+	            String nom = getString("nom : ");
+	            String prenom = getString("prenom : ");
+	            String mail = getString("mail : ");
+	            String password = getString("password : ");
+
+	            LocalDate dateArrivee = LocalDate.parse(
+	                getString("date d'arrivée (yyyy-MM-dd) : ")
+	            );
+
+	            LocalDate dateDepart = LocalDate.parse(
+	                getString("date de départ (yyyy-MM-dd) : ")
+	            );
+
+	            ligue.addEmploye(
+	                nom,
+	                prenom,
+	                mail,
+	                password,
+	                dateArrivee,
+	                dateDepart
+	            );
+	        }
+	    );
 	}
+
 	
 	private Menu gererEmployes(Ligue ligue)
 	{
 		Menu menu = new Menu("Gérer les employés de " + ligue.getNom(), "e");
 		menu.add(afficherEmployes(ligue));
 		menu.add(ajouterEmploye(ligue));
-		menu.add(modifierEmploye(ligue));
+		menu.add(selectionnerEmploye(ligue));
 		menu.add(supprimerEmploye(ligue));
 		menu.addBack("q");
 		return menu;
 	}
+	
 
 	private List<Employe> supprimerEmploye(final Ligue ligue)
 	{
@@ -123,18 +147,38 @@ public class LigueConsole
 				);
 	}
 	
+	
 	private List<Employe> changerAdministrateur(final Ligue ligue)
 	{
 		return null;
-	}		
+	}	
+	
+	
+	
+	
+	
+	private List<Employe> selectionnerEmploye(final Ligue ligue)
+	{
+	    return new List<>(
+	        "Sélectionner un employé à modifier",
+	        "e",
+	        () -> new ArrayList<>(ligue.getEmployes()),
+	        (index, employe) ->
+	            employeConsole.editerEmploye()
+	    );
+	}
 
-	private List<Employe> modifierEmploye(final Ligue ligue)
+
+	
+
+	/*private List<Employe> modifierEmploye(final Ligue ligue)
 	{
 		return new List<>("Modifier un employé", "e", 
 				() -> new ArrayList<>(ligue.getEmployes()),
 				employeConsole.editerEmploye()
 				);
-	}
+	}*/
+	
 	
 	private Option supprimer(Ligue ligue)
 	{
