@@ -170,6 +170,15 @@ public class LigueConsole
 
 
 	
+
+	/*private List<Employe> modifierEmploye(final Ligue ligue)
+	{
+		return new List<>("Modifier un employé", "e", 
+				() -> new ArrayList<>(ligue.getEmployes()),
+				employeConsole.editerEmploye()
+				);
+	}*/
+	
 	
 	private Option supprimer(Ligue ligue)
 	{
