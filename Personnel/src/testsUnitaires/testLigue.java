@@ -142,5 +142,3 @@ class testLigue
         assertEquals(user, ligue.getAdministrateur());
 	}
 }
-
-
