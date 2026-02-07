@@ -184,13 +184,13 @@ public class Employe implements Serializable, Comparable<Employe>
 	
 	public void setdate_arrivee(LocalDate date_arrivee)
 	{
-		if (date_arrivee == null || date_depart == null) {
-			throw new IllegalArgumentException("Les dates d'arrivée et de départs sont obligatoires");
+		if (date_arrivee == null) {
+			throw new IllegalArgumentException("La date d'arrivée est obligatoire");
 		}
         if (date_depart != null && date_depart.isBefore(date_arrivee)) {
-            throw new IllegalArgumentException(
-                "La date d'arrivée est postérieure à la date de départ");
+            throw new IllegalArgumentException("La date d'arrivée est postérieure à la date de départ");
         }
+
         this.date_arrivee = date_arrivee;
     }
 
@@ -202,6 +202,11 @@ public class Employe implements Serializable, Comparable<Employe>
 		{
             throw new IllegalArgumentException("La date de départ ne peut pas être antérieure à la date d'arrivée");
 		}
+		
+		if(date_arrivee == null) {
+			throw new IllegalArgumentException("La date de départ est obligatoire");
+		}
+
 		this.date_depart = date_depart;
 	}
 

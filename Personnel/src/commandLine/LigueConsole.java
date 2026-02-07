@@ -106,13 +106,38 @@ public class LigueConsole
 	            String mail = getString("mail : ");
 	            String password = getString("password : ");
 
-	            LocalDate dateArrivee = LocalDate.parse(
-	                getString("date d'arrivée (yyyy-MM-dd) : ")
-	            );
+	            LocalDate dateArrivee = null;
+	            LocalDate dateDepart = null;
 
-	            LocalDate dateDepart = LocalDate.parse(
-	                getString("date de départ (yyyy-MM-dd) : ")
-	            );
+	            
+	            
+	            while (dateArrivee == null) {
+	                try {
+	                    String input = getString("date d'arrivée (yyyy-MM-dd) : ");
+	                    dateArrivee = LocalDate.parse(input);
+	                } catch (java.time.format.DateTimeParseException e) {
+	                    System.err.println("Format incorrect pour la date d'arrivée. Utilisez le format yyyy-MM-dd.");
+	                }
+	            }
+
+	            
+	            while (dateDepart == null) {
+	                try {
+	                    String input = getString("date de départ (yyyy-MM-dd) : ");
+	                    dateDepart = LocalDate.parse(input);
+
+	                    
+	                    if (dateDepart.isBefore(dateArrivee)) {
+	                        System.err.println("La date de départ ne peut pas être avant la date d'arrivée.");
+	                        dateDepart = null; 
+	                    }
+
+	                } catch (java.time.format.DateTimeParseException e) {
+	                    System.err.println("Format incorrect pour la date de départ. Utilisez le format yyyy-MM-dd.");
+	                }
+	            }
+	            
+	            
 
 	            ligue.addEmploye(
 	                nom,
@@ -125,6 +150,7 @@ public class LigueConsole
 	        }
 	    );
 	}
+
 
 	
 	private Menu gererEmployes(Ligue ligue)
