@@ -177,8 +177,6 @@ public class LigueConsole
 		);
 	}	
 	
-
-	
 	
 	/*private List<Employe> selectionnerEmploye(final Ligue ligue)
 	{
