@@ -34,10 +34,10 @@ public class Employe implements Serializable, Comparable<Employe>
 		
 		//modifications 
 		
-		//conditions de validation de la date 
+		/*conditions de validation de la date 
 		if (date_arrivee == null || date_depart == null) {
 			throw new IllegalArgumentException("Les dates d'arrivée et de départs sont obligatoires");
-		}
+		}*/
 
 
 	    if (date_depart != null && date_arrivee != null && date_depart.isBefore(date_arrivee)) {
