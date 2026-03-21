@@ -42,7 +42,7 @@ public class Ligue implements Serializable, Comparable<Ligue>
 		administrateur = gestionPersonnel.getRoot();
 		this.id = id;
 	}
-
+	
 	/**
 	 * Retourne le nom de la ligue.
 	 * @return le nom de la ligue.
@@ -117,10 +117,11 @@ public class Ligue implements Serializable, Comparable<Ligue>
 
 	public Employe addEmploye(String nom, String prenom, String mail, String password, java.time.LocalDate date_depart, java.time.LocalDate date_arrivee)
 	{
-		Employe employe = new Employe(this.gestionPersonnel, this, nom, prenom, mail, password, date_depart, date_arrivee);
+		Employe employe = new Employe(this.gestionPersonnel, this, id, nom, prenom, mail, password, date_depart, date_arrivee);
 		employes.add(employe);
 		return employe;
 	}
+	
 	
 	public void remove(Employe employe)
 	{

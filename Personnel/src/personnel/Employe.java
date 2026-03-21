@@ -1,6 +1,7 @@
 package personnel;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.time.LocalDate;
 
 /**
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 public class Employe implements Serializable, Comparable<Employe>
 {
 	private static final long serialVersionUID = 4795721718037994734L;
+	private int id;
 	private String nom, prenom, password, mail;
 	
 	//modifications
@@ -23,9 +25,10 @@ public class Employe implements Serializable, Comparable<Employe>
 	private Ligue ligue;
 	private GestionPersonnel gestionPersonnel;
 	
-	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate date_arrivee, LocalDate date_depart)
+	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, int id,String nom, String prenom, String mail, String password, LocalDate date_arrivee, LocalDate date_depart)
 	{
 		this.gestionPersonnel = gestionPersonnel;
+		this.id =id;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.password = password;
@@ -77,6 +80,15 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * Retourne le nom de l'employé.
 	 * @return le nom de l'employé. 
 	 */
+	
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	
 	public String getNom()
 	{
