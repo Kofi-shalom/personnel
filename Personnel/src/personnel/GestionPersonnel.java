@@ -1,6 +1,7 @@
 package personnel;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -103,6 +104,11 @@ public class GestionPersonnel implements Serializable
 	{
 		return passerelle.insert(ligue);
 	}
+	
+	int insert(Employe employe) throws SauvegardeImpossible {
+		
+		return passerelle.insert(employe);
+	}
 
 	/**
 	 * Retourne le root (super-utilisateur).
@@ -113,4 +119,9 @@ public class GestionPersonnel implements Serializable
 	{
 		return root;
 	}
+	
+	public void addroot(String nom, String password) throws SauvegardeImpossible {
+		root = new Employe(this, null, nom, nom, nom + "@root.fr", password, LocalDate.now(), null);
+	}
+
 }

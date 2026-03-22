@@ -3,6 +3,7 @@ package personnel;
 import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.TreeSet;
 
 /**
  * Employé d'une ligue hébergée par la M2L. Certains peuvent 
@@ -51,6 +52,15 @@ public class Employe implements Serializable, Comparable<Employe>
 		this.date_depart = date_depart;
 		this.date_arrivee = date_arrivee;
 	}
+	
+	
+	public Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate date_arrivee, LocalDate date_depart) throws SauvegardeImpossible
+	{
+		this(gestionPersonnel, ligue, -1, nom, prenom, mail, password, date_arrivee, date_depart);
+		this.id = gestionPersonnel.insert(this);
+		}
+	
+
 	
 	/**
 	 * Retourne vrai ssi l'employé est administrateur de la ligue 

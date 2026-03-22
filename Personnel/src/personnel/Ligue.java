@@ -42,7 +42,8 @@ public class Ligue implements Serializable, Comparable<Ligue>
 		administrateur = gestionPersonnel.getRoot();
 		this.id = id;
 	}
-	
+
+
 	/**
 	 * Retourne le nom de la ligue.
 	 * @return le nom de la ligue.
