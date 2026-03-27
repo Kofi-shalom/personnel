@@ -129,5 +129,10 @@ public class GestionPersonnel implements Serializable
 	{
 		this.root = new Employe(this, null, id, nom, prenom, mail, password, dateArrivee, dateDepart);
 	}
+	
+	void update(Ligue ligue) throws SauvegardeImpossible
+	{
+		passerelle.update(ligue); ;
+	}
 
 }

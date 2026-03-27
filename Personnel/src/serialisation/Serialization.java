@@ -57,4 +57,10 @@ public class Serialization implements personnel.Passerelle
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public void update(Ligue ligue) throws SauvegardeImpossible {
+		// TODO Auto-generated method stub
+		
+	}
 }
