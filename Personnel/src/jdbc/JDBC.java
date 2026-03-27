@@ -217,8 +217,9 @@ public class JDBC implements Passerelle
 		try 
 		{
 			PreparedStatement instruction;
-			instruction = connection.prepareStatement("UPDATE table ligue  SET nom = ? WHERE id_ligue = ?");
-			instruction.setString(1, ligue.getNom());		
+			instruction = connection.prepareStatement("UPDATE ligue  SET nom = ? WHERE id = ?");
+			instruction.setString(1, ligue.getNom());
+			instruction.setInt(2, ligue.getId());
 			instruction.executeUpdate();
 		} 
 		catch (SQLException exception) 

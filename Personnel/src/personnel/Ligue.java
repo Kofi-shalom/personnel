@@ -62,6 +62,12 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	public void setNom(String nom)
 	{
 		this.nom = nom;
+	
+			try {
+				gestionPersonnel.update(this);
+			} catch (SauvegardeImpossible e) {
+				e.printStackTrace();
+			}
 	}
 
 	/**
@@ -88,6 +94,13 @@ public class Ligue implements Serializable, Comparable<Ligue>
 		if (administrateur != root && administrateur.getLigue() != this)
 			throw new DroitsInsuffisants();
 		this.administrateur = administrateur;
+		
+			try {
+				gestionPersonnel.update(this);
+			} catch (SauvegardeImpossible e) {
+				e.printStackTrace();
+			
+		}
 	}
 
 	/**
@@ -150,5 +163,10 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	public String toString()
 	{
 		return nom;
+	}
+
+	public int getId() {
+		// TODO Auto-generated method stub
+		return id;
 	}
 }
