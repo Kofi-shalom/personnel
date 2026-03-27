@@ -123,5 +123,11 @@ public class GestionPersonnel implements Serializable
 	public void addroot(String nom, String password) throws SauvegardeImpossible {
 		root = new Employe(this, null, nom, nom, nom + "@root.fr", password, LocalDate.now(), null);
 	}
+	
+	
+	public void addRoot(int id, String nom, String prenom, String mail, String password, LocalDate dateArrivee, LocalDate dateDepart)
+	{
+		this.root = new Employe(this, null, id, nom, prenom, mail, password, dateArrivee, dateDepart);
+	}
 
 }
