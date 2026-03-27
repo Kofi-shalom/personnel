@@ -97,12 +97,18 @@ public class Employe implements Serializable, Comparable<Employe>
 	
 	public void setId(int id) {
 		this.id = id;
+		try {
+			gestionPersonnel.update(this);
+		} catch (SauvegardeImpossible e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
 	public String getNom()
 	{
 		return nom;
+		
 	}
 
 	/**
@@ -113,6 +119,13 @@ public class Employe implements Serializable, Comparable<Employe>
 	public void setNom(String nom)
 	{
 		this.nom = nom;
+		
+			try {
+				gestionPersonnel.update(this);
+			} catch (SauvegardeImpossible e) {
+				e.printStackTrace();
+			}
+		
 	}
 
 	/**
@@ -133,6 +146,11 @@ public class Employe implements Serializable, Comparable<Employe>
 	public void setPrenom(String prenom)
 	{
 		this.prenom = prenom;
+		try {
+			gestionPersonnel.update(this);
+		} catch (SauvegardeImpossible e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -153,6 +171,11 @@ public class Employe implements Serializable, Comparable<Employe>
 	public void setMail(String mail)
 	{
 		this.mail = mail;
+		try {
+			gestionPersonnel.update(this);
+		} catch (SauvegardeImpossible e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -176,6 +199,11 @@ public class Employe implements Serializable, Comparable<Employe>
 	public void setPassword(String password)
 	{
 		this.password= password;
+		try {
+			gestionPersonnel.update(this);
+		} catch (SauvegardeImpossible e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -214,6 +242,12 @@ public class Employe implements Serializable, Comparable<Employe>
         }
 
         this.date_arrivee = date_arrivee;
+        
+		try {
+			gestionPersonnel.update(this);
+		} catch (SauvegardeImpossible e) {
+			e.printStackTrace();
+		}
     }
 
 	
@@ -230,6 +264,12 @@ public class Employe implements Serializable, Comparable<Employe>
 		}
 
 		this.date_depart = date_depart;
+		
+		try {
+			gestionPersonnel.update(this);
+		} catch (SauvegardeImpossible e) {
+			e.printStackTrace();
+		}
 	}
 
 	
