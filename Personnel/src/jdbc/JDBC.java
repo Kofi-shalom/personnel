@@ -159,29 +159,42 @@ public class JDBC implements Passerelle
 	@Override
 	public int insert(Employe employe) throws SauvegardeImpossible 
 	{
-		try 
-		{
-			PreparedStatement instruction;
-			instruction = connection.prepareStatement("insert into employe (nom, prenom, email, password, date_arrivee, date_depart) values(?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-			instruction.setString(1, employe.getNom());
-			instruction.setString(2, employe.getPrenom());
-			instruction.setString(3, employe.getMail());
-			instruction.setDate(4, Date.valueOf(employe.getdate_arrivee()));
-			instruction.setDate(5, Date.valueOf(employe.getdate_depart()));
-			
-			
-			instruction.executeUpdate();
-			ResultSet id = instruction.getGeneratedKeys();
-			id.next();
-			return id.getInt(1);
-		} 
-		catch (SQLException exception) 
-		{
-			exception.printStackTrace();
-			throw new SauvegardeImpossible(exception);
-		}		
+	    try 
+	    {
+	        // 1. La requête SQL avec TOUTES les colonnes nécessaires
+	        String query = "INSERT INTO employe (nom, prenom, mail, password, date_arrivee, date_depart, idLigue) VALUES (?, ?, ?, ?, ?, ?, ?)";
+	        
+	        PreparedStatement instruction = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+	        
+	        // 2. On remplit les "?" (Attention à l'ordre !)
+	        instruction.setString(1, employe.getNom());
+	        instruction.setString(2, employe.getPrenom());
+	        instruction.setString(3, employe.getMail());
+	        instruction.setString(4, "password123"); // Mot de passe par défaut
+	        instruction.setDate(5, java.sql.Date.valueOf(employe.getdate_arrivee()));
+	        
+	        // Gestion de la date de départ (elle peut être vide/null au début)
+	        if (employe.getdate_depart() != null)
+	            instruction.setDate(6, java.sql.Date.valueOf(employe.getdate_depart()));
+	        else
+	            instruction.setNull(6, java.sql.Types.DATE);
+
+	        // 3. ON LIE L'EMPLOYÉ À SA LIGUE (C'est le plus important)
+	        instruction.setInt(7, employe.getLigue().getId());
+	        
+	        instruction.executeUpdate();
+	        
+	        // 4. On récupère l'ID que la base de données a créé automatiquement
+	        ResultSet idGenerated = instruction.getGeneratedKeys();
+	        idGenerated.next();
+	        return idGenerated.getInt(1);
+	    } 
+	    catch (SQLException exception) 
+	    {
+	        exception.printStackTrace();
+	        throw new SauvegardeImpossible(exception);
+	    }       
 	}
-	
 	
 	
 	@Override
