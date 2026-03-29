@@ -84,7 +84,7 @@ public class JDBC implements Passerelle
 				gestionPersonnel.addRoot(id, nom, prenom, mail, password, dateArrivee, dateDepart);
 			}
 
-			
+			// Charger les ligues 
 			String requete = "SELECT * FROM ligue";
 			Statement instruction = connection.createStatement();
 			ResultSet ligues = instruction.executeQuery(requete);
