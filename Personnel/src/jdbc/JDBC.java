@@ -24,7 +24,7 @@ public class JDBC implements Passerelle
 		}
 		catch (ClassNotFoundException e)
 		{
-			System.out.println("Pilote JDBC non installé.");
+			System.out.println("Pilote JDBC non installÃ©.");
 		}
 		catch (SQLException e)
 		{
@@ -49,45 +49,7 @@ public class JDBC implements Passerelle
 			System.out.println(e);
 		}
 		return gestionPersonnel;
-	}
-	
-
-	@Override
-	public GestionPersonnel getGestionPersonnel() throws SQLException
-	{
-		GestionPersonnel gp = new GestionPersonnel();
-
-		PreparedStatement ps = connection.prepareStatement(
-			"SELECT * FROM employe WHERE role = 'ROOT'"
-		);
-
-		ResultSet rs = ps.executeQuery();
-
-		if (rs.next()) {
-			
-			int id = rs.getInt("id_employe");
-			String nom = rs.getString("nom");
-			String prenom = rs.getString("prenom");
-			String mail = rs.getString("mail");
-			String password = rs.getString("password");
-
-			LocalDate dateArrivee = rs.getDate("date_arrivee").toLocalDate();
-
-			LocalDate dateDepart = null;
-			if (rs.getDate("date_depart") != null) {
-				dateDepart = rs.getDate("date_depart").toLocalDate();
-			}
-
-			gp.addRoot(id, nom, prenom, mail, password, dateArrivee, dateDepart);
-
-		} else {
-			
-			gp.addRoot(0, "root", "root", null, null, null, null);
-		}
-
-		return gp;
 	}*/
-	
 	
 	
 	
@@ -100,7 +62,7 @@ public class JDBC implements Passerelle
 
 		try 
 		{
-			// 🔹 1. Charger le root
+			// Charger le root
 			String reqRoot = "SELECT * FROM employe WHERE role = 'ROOT'";
 			PreparedStatement psRoot = connection.prepareStatement(reqRoot);
 			ResultSet rsRoot = psRoot.executeQuery();
@@ -122,12 +84,23 @@ public class JDBC implements Passerelle
 				gestionPersonnel.addRoot(id, nom, prenom, mail, password, dateArrivee, dateDepart);
 			}
 
-			// 🔹 2. Charger les ligues (ton code existant)
+			
 			String requete = "SELECT * FROM ligue";
 			Statement instruction = connection.createStatement();
 			ResultSet ligues = instruction.executeQuery(requete);
+			
 
 			while (ligues.next()) {
+				
+
+				    String req = "SELECT * FROM employe WHERE idLigue = ?";
+				    PreparedStatement stmt = connection.prepareStatement(req);
+				    stmt.setInt(1, ligues.getRow());
+
+				    ResultSet rs = stmt.executeQuery();
+				    
+			
+				
 				gestionPersonnel.addLigue(ligues.getInt(1), ligues.getString(2));
 			}
 		}
